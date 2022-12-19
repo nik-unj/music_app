@@ -19,4 +19,14 @@ class onSongPlay extends SongEvent {
   });
 }
 
+// class onSongTime extends SongEvent {
+//   int index;
+//   Duration time;
+
+//   onSongTime({
+//     required this.index,
+//     required this.time,
+//   });
+// }
+
 class onSongStop extends SongEvent {}

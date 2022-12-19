@@ -30,6 +30,12 @@ class SongBloc extends Bloc<SongEvent, SongState> {
       audioPlayer.playOrPause();
     });
 
+    // on<onSongTime>((event, emit) {
+    //   emit(SongState(index: event.index));
+    //   print(event.time);
+    //   audioPlayer.seekBy(event.time);
+    // });
+
     on<onSongStop>((event, emit) {
       emit(SongState(index: -1));
       audioPlayer.pause();

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:io';
 import 'package:music/bloc/song_bloc.dart';
 import 'package:music/widget/circleButton.dart';
 
@@ -38,7 +37,7 @@ class _SongScreenState extends State<SongScreen> {
     if (seconds <= 9) data += "0";
     data += seconds.toString();
     return data;
-  }
+  } 
 
   static String doubleMinutesSeconds(int ms) {
     String data = '';
@@ -51,21 +50,6 @@ class _SongScreenState extends State<SongScreen> {
     if (seconds <= 9) data += "0";
     data += seconds.toString();
     return data;
-  }
-
-  getLyrics() async {
-    print("Called");
-    const String baseURL =
-        "https://orion.apiseeds.com/api/music/lyric/"; // The API endpoint
-    const String APIKey =
-        "h4u5fEvPpoCj01LEObdL3oZSkT1m11XmdvLL3KeyXrkR0mTLIZOCvcze9HkcdSVW";
-    try{
-    var request = await HttpClient().getUrl(Uri.parse("${baseURL}a.r.rahman/maintumhara?apikey=$APIKey"));
-    var response = await request.close();
-    print(response);
-    }catch(e){
-      print(e);
-    }
   }
 
   @override
@@ -155,12 +139,6 @@ class _SongScreenState extends State<SongScreen> {
           borderRadius: BorderRadius.all(
             Radius.circular(25),
           ),
-          // image: DecorationImage(
-          //   fit: BoxFit.fill,
-          //   // image: NetworkImage(
-          //   //   widget.details['coverImage'],
-          //   // ),
-          // ),
         ),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(
@@ -194,7 +172,28 @@ class _SongScreenState extends State<SongScreen> {
                     double.parse(doubleMinutesSeconds(duration.inMilliseconds)),
                 activeColor: Colors.black,
                 inactiveColor: const Color(0xff8C8C8C),
-                onChanged: (double value) {},
+                onChanged: (double value) {
+                  // List time = value.toStringAsPrecision(3).split('.');
+                  // if (value < 1) {
+                  //   List data =
+                  //       (int.parse(time[1]) * 60 / 1000).toString().split('.');
+                  //   time[1] = data[0];
+                  // } else {
+                  //   List data =
+                  //       (int.parse(time[1]) * 0.6).toString().split('.');
+                  //   time[1] = data[0];
+                  // }
+                  // print(time);
+                  // BlocProvider.of<SongBloc>(context).add(
+                  //   onSongTime(
+                  //     index: widget.index,
+                  //     time: Duration(
+                  //       minutes: int.parse(time[0]),
+                  //       seconds: int.parse(time[1]),
+                  //     ),
+                  //   ),
+                  // );
+                },
               ),
             ),
             Padding(
@@ -204,9 +203,11 @@ class _SongScreenState extends State<SongScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(stringMinutesSeconds(duration.inMilliseconds)),
-                  Text(stringMinutesSeconds(audioPlayer
-                          .current.value?.audio.duration.inMilliseconds ??
-                      0)),
+                  Text(
+                    stringMinutesSeconds(audioPlayer
+                            .current.value?.audio.duration.inMilliseconds ??
+                        0),
+                  ),
                 ],
               ),
             )
@@ -261,9 +262,7 @@ class _SongScreenState extends State<SongScreen> {
         CircleButton(
           size: 40,
           bgColor: Colors.transparent,
-          onTap: () {
-            getLyrics();
-          },
+          onTap: () {},
           iconData: Icon(
             Icons.skip_next,
             size: 40,
